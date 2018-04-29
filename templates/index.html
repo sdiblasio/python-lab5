@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List Manager</title>
+</head>
+<body>
+    <h1>Welcome to the Todo List Manager</h1>
+    <p>You can use the text input below to insert a new task<br>
+    You can delete tasks once at time by clicking on the relative button next to it</p>
+
+    {% if maxlenght > 0 %}
+    <ul>Here you can see all the existing tasks
+    {% for id in ids %}
+        <li>{{ listed_tasks[id] }}
+            {% spaces = ""
+               for number in range(0,maxlenght-len(listed_tasks[id])):
+                    spaces = spaces + " " %}
+            <pre>{{ spaces }}</pre>
+            <button type="submit"><a href="url_for('delete_page', id_task = id)"></a></button>
+        {% endfor %}
+        </li>
+    </ul>
+    {% else %}
+    <p>There aren-t existing tasks. Please add some of them, if you have</p>
+    {% endif %}
+    <p>Insert a new task>
+    <form action="{{ url_for('insert_page') }}" method="post">
+        <input type="text" width="80" name="task">
+        <input type="submit" value="Insert">
+    </form></p>
+</body>
+</html>
