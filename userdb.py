@@ -30,21 +30,16 @@ def task_list():
     cur = conn.cursor()
     cur.execute(sql)
     todo_list = cur.fetchall()
-
     cur.close()
     conn.close()
-    if not todo_list:
-        print("Empty list from database")
 
     task_list = list()
     for task in todo_list:
         dict_task = dict()
         dict_task["id"] = task[0]
         dict_task["todo"] = task[1]
-
         task_list.append(dict_task)
-    if not task_list:
-        print("Empty list")
+
     return task_list
 
 

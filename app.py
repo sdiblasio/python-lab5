@@ -13,11 +13,14 @@ def index():
     task_list = userdb.task_list()
     maxlenght = 0
     for task in task_list:
+        if not task['todo']:
+            print("Empty object")
+        print(task['todo'])
         if len(task['todo']) > maxlenght:
             maxlenght = len(task['todo'])
     if maxlenght > 0:
         maxlenght += 20
-    return render_template("index.html")
+    return render_template("index.html", task_list=task_list)
 
 
 @app.route('/insert_page', methods=['POST'])

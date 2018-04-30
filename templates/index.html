@@ -10,11 +10,11 @@
     You can delete tasks once at time by clicking on the relative button next to it</p>
 
 
-    <ul>Here you can see all the existing tasks
+    <ul>Here you can see all the existing task
     {% for task in task_list %}
         <li>{{ task['todo'] }}
 
-            <button type="submit"><a href="url_for('delete_page', id_task = task['id'])"></a></button>
+            <a href="{{ url_for('delete_page', id_task = task['id']) }}"><button type="submit" value="Delete"></button></a>
         </li>
     {% endfor %}
     </ul>
