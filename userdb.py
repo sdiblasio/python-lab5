@@ -25,27 +25,27 @@ def delete_task(id=0):
 
 
 def task_list():
-    sql = "SELECT ? FROM task"
+    sql = "SELECT * FROM task"
     conn = sqlite3.connect(db_name)
-    elem = "todo"
     cur = conn.cursor()
-    cur.execute(sql, (elem,))
+    cur.execute(sql)
     todo_list = cur.fetchall()
-    '''if not todo_list:
-        print("No todos")'''
-    cur.close()
-    elem = "id"
-    cur = conn.cursor()
-    cur.execute(sql, (elem,))
-    ids = cur.fetchall()
-    '''if not ids:
-        print("No ids")'''
+
     cur.close()
     conn.close()
-    tasks_list = dict()
-    for (id, todo) in (ids, todo_list):
-        tasks_list[id] = todo
-    return (ids, tasks_list)
+    if not todo_list:
+        print("Empty list from database")
+
+    task_list = list()
+    for task in todo_list:
+        dict_task = dict()
+        dict_task["id"] = task[0]
+        dict_task["todo"] = task[1]
+
+        task_list.append(dict_task)
+    if not task_list:
+        print("Empty list")
+    return task_list
 
 
 if __name__ == '__main__':

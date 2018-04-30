@@ -10,12 +10,11 @@ def hello_world():
 
 @app.route('/index')
 def index():
-    (ids, listed_tasks) = userdb.task_list()
+    task_list = userdb.task_list()
     maxlenght = 0
-    for id in ids:
-        task = listed_tasks[id]
-        if len(task) > maxlenght:
-            maxlenght = len(task)
+    for task in task_list:
+        if len(task['todo']) > maxlenght:
+            maxlenght = len(task['todo'])
     if maxlenght > 0:
         maxlenght += 20
     return render_template("index.html")
