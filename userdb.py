@@ -2,11 +2,11 @@ import sqlite3
 db_name = 'tasks.db'
 
 
-def insert_task(task="example_task"):
-    sql = "INSERT INTO task(todo) VALUES(?)"
+def insert_task(task="example_task", urgent=True):
+    sql = "INSERT INTO task(todo, urgent) VALUES(?,?)"
     conn = sqlite3.connect(db_name)
     cur = conn.cursor()
-    cur.execute(sql, (task,))
+    cur.execute(sql, (task,urgent))
     cur.close()
     conn.commit()
     conn.close()
@@ -25,7 +25,7 @@ def delete_task(id=0):
 
 
 def task_list():
-    sql = "SELECT * FROM task"
+    sql = "SELECT * FROM task ORDER BY todo ASC"
     conn = sqlite3.connect(db_name)
     cur = conn.cursor()
     cur.execute(sql)

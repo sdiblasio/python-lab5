@@ -11,22 +11,25 @@ def hello_world():
 @app.route('/index')
 def index():
     task_list = userdb.task_list()
-    maxlenght = 0
+    maxlength = 0
     for task in task_list:
         if not task['todo']:
             print("Empty object")
-        print(task['todo'])
-        if len(task['todo']) > maxlenght:
-            maxlenght = len(task['todo'])
-    if maxlenght > 0:
-        maxlenght += 20
-    return render_template("index.html", task_list=task_list)
+        if len(task['todo']) > maxlength:
+            maxlength = len(task['todo'])
+    if maxlength > 0:
+        maxlength += 20
+    return render_template("index.html", task_list=task_list, row_length=maxlength)
 
 
 @app.route('/insert_page', methods=['POST'])
 def insert_page():
     new_task = request.form['task']
-    userdb.insert_task(new_task)
+    if request.form['urgent'] == "true":
+        urgent = True
+    else:
+        urgent = False
+    userdb.insert_task(new_task, urgent)
     return redirect(url_for('index'))
 
 

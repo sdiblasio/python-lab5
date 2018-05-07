@@ -13,8 +13,7 @@
     <ul>Here you can see all the existing task
     {% for task in task_list %}
         <li>{{ task['todo'] }}
-
-            <a href="{{ url_for('delete_page', id_task = task['id']) }}"><button type="submit" value="Delete"></button></a>
+            <a href="{{ url_for('delete_page', id_task = task['id']) }}"><button type="submit" value="Delete">Delete</button></a>
         </li>
     {% endfor %}
     </ul>
@@ -22,6 +21,8 @@
     <p>Insert a new task
     <form action="{{ url_for('insert_page') }}" method="post">
         <input type="text" width="80" name="task">
+        <input type="radio" name="urgent" value="true" checked>Urgent
+        <input type="radio" name="urgent" value="false">Not urgent
         <input type="submit" value="Insert">
     </form></p>
 </body>
